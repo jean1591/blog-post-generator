@@ -13,7 +13,7 @@ export const Plan = () => {
 
   return (
     <div className="rounded-xl bg-gray-200 p-4 md:p-8">
-      <p className="text-lg font-medium leading-tight tracking-tight">Plan</p>
+      <p className="text-2xl font-bold leading-tight tracking-tight">Plan</p>
 
       <div className="mt-8 space-y-8">
         {plan.map((planItem) => (
@@ -35,24 +35,27 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
 
   return (
     <div>
-      <div className="flex items-center justify-between rounded-md bg-gray-100 p-4">
+      <div className="group relative flex items-center justify-between rounded-lg bg-gray-100 p-4">
         <p
           className={classNames(
-            level === 1 ? '' : '',
-            level === 2 ? 'text-sm' : '',
-            level === 3 ? 'text-xs' : '',
-            `font-medium leading-tight tracking-tight`
+            level === 1 ? 'font-semibold' : '',
+            level === 2 ? 'text-sm font-medium' : '',
+            level === 3 ? 'text-xs font-medium' : '',
+            'leading-tight tracking-tight'
           )}
         >
           {title}
         </p>
 
-        <button onClick={() => handleOnDelete(id)}>
+        <button
+          onClick={() => handleOnDelete(id)}
+          className="absolute right-0 top-0 m-4 hidden group-hover:block"
+        >
           <PiXBold className="h-4 w-4 text-red-600" />
         </button>
       </div>
 
-      <div className="ml-8 mt-2 space-y-1">
+      <div className="ml-12 mt-2 space-y-1">
         {children.map((child) => (
           <PlanItemComponent key={child.title} planItem={child} />
         ))}
