@@ -32,11 +32,25 @@ export const Plan = () => {
 
 const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
   const [displayAddNewItem, setDisplayAddNewItem] = useState<boolean>(false)
+  const [newItemTitle, setNewItemTitle] = useState<string | undefined>(
+    undefined
+  )
   const dispatch = useDispatch()
 
   const { children, id, level, title } = planItem
 
-  const handleOnAddNewItem = () => {
+  const handleDisplayAddNewItem = () => {
+    setDisplayAddNewItem(!displayAddNewItem)
+  }
+
+  const handleCancelAddNewItem = () => {
+    setNewItemTitle(undefined)
+    setDisplayAddNewItem(!displayAddNewItem)
+  }
+
+  const handleAddNewItem = () => {
+    setNewItemTitle(undefined)
+    dispatch(addNewSection({ title: newItemTitle ?? '', id }))
     setDisplayAddNewItem(!displayAddNewItem)
   }
 
@@ -72,7 +86,7 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
         <div className="mt-1 pl-12">
           <button
             className="w-full rounded-lg bg-gray-100 p-4 text-left text-sm font-medium leading-tight tracking-tight text-gray-400"
-            onClick={handleOnAddNewItem}
+            onClick={handleDisplayAddNewItem}
           >
             Add new section
           </button>
@@ -82,19 +96,21 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
       {level === 1 && displayAddNewItem ? (
         <div className="ml-12 mt-2 flex items-center justify-between gap-2 rounded-lg bg-gray-100 px-4 py-2">
           <input
+            onChange={(e) => setNewItemTitle(e.target.value)}
             className="w-2/3 rounded-md bg-gray-100 p-2 text-sm font-medium leading-tight tracking-tight ring-1 ring-gray-300"
             type="text"
-            placeholder="New item title"
+            placeholder="New section title"
           />
           <button
-            className="w-1/6 text-sm leading-tight tracking-tight"
-            onClick={handleOnAddNewItem}
+            className="w-1/6 rounded-md bg-black p-1 text-sm leading-tight tracking-tight text-white"
+            onClick={handleCancelAddNewItem}
           >
             Cancel
           </button>
           <button
-            className="w-1/6 text-sm leading-tight tracking-tight"
-            onClick={() => dispatch(addNewSection({ title: 'Bleble ble', id }))}
+            disabled={newItemTitle === undefined || newItemTitle === ''}
+            className="w-1/6 rounded-md p-1 text-sm leading-tight tracking-tight ring-1 ring-gray-500"
+            onClick={handleAddNewItem}
           >
             Add
           </button>
