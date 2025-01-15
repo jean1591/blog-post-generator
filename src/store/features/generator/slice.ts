@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { PlanItem } from '@/types/generator'
+import { PlanSection } from '@/types/generator'
 
-const initialPlan: PlanItem[] = [
+const initialPlan: PlanSection[] = [
   {
     children: [
       { children: [], id: '1.1', level: 2, title: 'Importance Of UX Design' },
@@ -56,40 +56,40 @@ const initialPlan: PlanItem[] = [
 ]
 
 export interface GeneratorSlice {
-  plan: PlanItem[]
+  plan: PlanSection[]
 }
 
 const initialState: GeneratorSlice = {
   plan: initialPlan,
 }
 
-const deleteFromItems = (plan: PlanItem[], id: string): PlanItem[] => {
-  return plan.filter((item) => {
-    if (item.id === id) {
+const deleteFromSections = (plan: PlanSection[], id: string): PlanSection[] => {
+  return plan.filter((section) => {
+    if (section.id === id) {
       return false
     }
 
-    if (item.children.length > 0) {
-      item.children = deleteFromItems(item.children, id)
+    if (section.children.length > 0) {
+      section.children = deleteFromSections(section.children, id)
     }
     return true
   })
 }
 
-const addNewItemToPlan = (
-  plan: PlanItem[],
+const addNewSectionToPlan = (
+  plan: PlanSection[],
   id: string,
   title: string
-): PlanItem[] => {
-  return plan.map((item) => {
-    if (item.id === id) {
+): PlanSection[] => {
+  return plan.map((section) => {
+    if (section.id === id) {
       return {
-        ...item,
+        ...section,
         children: [
-          ...item.children,
+          ...section.children,
           {
             children: [],
-            id: `${item.id}.${34}`,
+            id: `${section.id}.${34}`,
             level: 2,
             title,
           },
@@ -97,7 +97,7 @@ const addNewItemToPlan = (
       }
     }
 
-    return item
+    return section
   })
 }
 
@@ -112,15 +112,15 @@ export const generatorSlice = createSlice({
       const {
         payload: { title, id },
       } = action
-      state.plan = addNewItemToPlan(state.plan, id, title)
+      state.plan = addNewSectionToPlan(state.plan, id, title)
     },
-    deleteItemFromPlan: (state, action: PayloadAction<string>) => {
+    deleteSectionFromPlan: (state, action: PayloadAction<string>) => {
       const { payload: id } = action
-      state.plan = deleteFromItems(state.plan, id)
+      state.plan = deleteFromSections(state.plan, id)
     },
   },
 })
 
-export const { addNewSection, deleteItemFromPlan } = generatorSlice.actions
+export const { addNewSection, deleteSectionFromPlan } = generatorSlice.actions
 
 export default generatorSlice.reducer
