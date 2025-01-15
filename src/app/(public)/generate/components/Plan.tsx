@@ -64,7 +64,7 @@ const PlanSectionComponent = ({
 
   return (
     <div className="relative">
-      <div className="group relative flex items-center justify-between rounded-lg bg-gray-100 p-4">
+      <div className="group relative flex items-center justify-between rounded-xl bg-gray-100 p-4">
         <p
           className={classNames(
             level === 1 ? 'font-semibold' : '',
@@ -93,7 +93,7 @@ const PlanSectionComponent = ({
       {level === 1 && !displayAddNewSection ? (
         <div className="mt-1 pl-12">
           <button
-            className="w-full rounded-lg bg-gray-100 p-4 text-left text-sm font-medium leading-tight tracking-tight text-gray-400"
+            className="w-full rounded-xl bg-gray-100 p-4 text-left text-sm font-medium leading-tight tracking-tight text-gray-400"
             onClick={handleDisplayAddNewSection}
           >
             Add new section
@@ -102,22 +102,22 @@ const PlanSectionComponent = ({
       ) : null}
 
       {level === 1 && displayAddNewSection ? (
-        <div className="ml-12 mt-2 flex items-center justify-between gap-2 rounded-lg bg-gray-100 px-4 py-2">
+        <div className="ml-12 mt-2 flex items-center justify-between gap-2 rounded-xl bg-gray-100 px-4 py-2">
           <input
             onChange={(e) => setNewSectionTitle(e.target.value)}
-            className="w-2/3 rounded-md bg-gray-100 p-2 text-sm font-medium leading-tight tracking-tight ring-1 ring-gray-300"
+            className="w-2/3 rounded-lg bg-gray-100 p-2 text-sm font-medium leading-tight tracking-tight ring-1 ring-gray-300"
             type="text"
             placeholder="New section title"
           />
           <button
-            className="w-1/6 rounded-md bg-black p-1 text-sm leading-tight tracking-tight text-white"
+            className="w-1/6 rounded-lg bg-black p-1 text-sm leading-tight tracking-tight text-white"
             onClick={handleCancelAddNewSection}
           >
             Cancel
           </button>
           <button
             disabled={newSectionTitle === undefined || newSectionTitle === ''}
-            className="w-1/6 rounded-md p-1 text-sm leading-tight tracking-tight ring-1 ring-gray-500"
+            className="w-1/6 rounded-lg p-1 text-sm leading-tight tracking-tight ring-1 ring-gray-500"
             onClick={handleAddNewSection}
           >
             Add
