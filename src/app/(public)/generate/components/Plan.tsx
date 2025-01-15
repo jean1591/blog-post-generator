@@ -39,8 +39,8 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
   }
 
   return (
-    <div>
-      <div className="group relative flex items-center justify-between rounded-lg bg-gray-100 p-4">
+    <div className="relative">
+      <div className="group relative z-10 flex items-center justify-between rounded-lg bg-gray-100 p-4">
         <p
           className={classNames(
             level === 1 ? 'font-semibold' : '',
@@ -60,9 +60,16 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
         </button>
       </div>
 
+      {children.length > 0 ? (
+        <div className="absolute left-4 top-0 z-0 h-full w-px bg-black" />
+      ) : null}
+
       <div className="mt-2 space-y-1 pl-12">
         {children.map((child) => (
-          <PlanItemComponent key={child.title} planItem={child} />
+          <div className="relative">
+            <div className="absolute left-[-32px] top-1/2 h-px w-8 bg-black" />
+            <PlanItemComponent key={child.title} planItem={child} />
+          </div>
         ))}
       </div>
 
