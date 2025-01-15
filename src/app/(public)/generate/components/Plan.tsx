@@ -3,7 +3,7 @@
 import {
   addNewSection,
   deleteSectionFromPlan,
-} from '@/store/features/generator/slice'
+} from '@/store/features/generate/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { PiXBold } from 'react-icons/pi'

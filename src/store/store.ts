@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import generatorReducer from './features/generator/slice'
+import generatorReducer from './features/generate/slice'
 import interactionsReducer from './features/interactions/slice'
 
 export const store = configureStore({
