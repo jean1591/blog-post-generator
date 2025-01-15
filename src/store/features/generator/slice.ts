@@ -76,10 +76,44 @@ const deleteFromItems = (plan: PlanItem[], id: string): PlanItem[] => {
   })
 }
 
+const addNewItemToPlan = (
+  plan: PlanItem[],
+  id: string,
+  title: string
+): PlanItem[] => {
+  return plan.map((item) => {
+    if (item.id === id) {
+      return {
+        ...item,
+        children: [
+          ...item.children,
+          {
+            children: [],
+            id: `${item.id}.${34}`,
+            level: 2,
+            title,
+          },
+        ],
+      }
+    }
+
+    return item
+  })
+}
+
 export const generatorSlice = createSlice({
   name: 'generatorSlice',
   initialState,
   reducers: {
+    addNewSection: (
+      state,
+      action: PayloadAction<{ title: string; id: string }>
+    ) => {
+      const {
+        payload: { title, id },
+      } = action
+      state.plan = addNewItemToPlan(state.plan, id, title)
+    },
     deleteItemFromPlan: (state, action: PayloadAction<string>) => {
       const { payload: id } = action
       state.plan = deleteFromItems(state.plan, id)
@@ -87,6 +121,6 @@ export const generatorSlice = createSlice({
   },
 })
 
-export const { deleteItemFromPlan } = generatorSlice.actions
+export const { addNewSection, deleteItemFromPlan } = generatorSlice.actions
 
 export default generatorSlice.reducer

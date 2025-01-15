@@ -1,12 +1,15 @@
 'use client'
 
+import {
+  addNewSection,
+  deleteItemFromPlan,
+} from '@/store/features/generator/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { PiXBold } from 'react-icons/pi'
 import { PlanItem } from '@/types/generator'
 import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
-import { deleteItemFromPlan } from '@/store/features/generator/slice'
 
 export const Plan = () => {
   const { plan } = useSelector((state: RootState) => state.generator)
@@ -29,10 +32,6 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
 
   const { children, id, level, title } = planItem
 
-  const handleOnDelete = (id: string) => {
-    dispatch(deleteItemFromPlan(id))
-  }
-
   return (
     <div>
       <div className="group relative flex items-center justify-between rounded-lg bg-gray-100 p-4">
@@ -48,7 +47,7 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
         </p>
 
         <button
-          onClick={() => handleOnDelete(id)}
+          onClick={() => dispatch(deleteItemFromPlan(id))}
           className="absolute right-0 top-0 m-4 hidden group-hover:block"
         >
           <PiXBold className="h-4 w-4 text-red-600" />
@@ -60,6 +59,29 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
           <PlanItemComponent key={child.title} planItem={child} />
         ))}
       </div>
+
+      {level === 1 ? (
+        <div className="ml-12 mt-2 rounded-lg bg-gray-100 p-4">
+          <button
+            onClick={() => dispatch(addNewSection({ title: 'Bleble ble', id }))}
+          >
+            <p className="text-sm font-medium leading-tight tracking-tight text-gray-400">
+              Add new section
+            </p>
+          </button>
+        </div>
+      ) : null}
+
+      {level === 1 ? (
+        <button
+          onClick={() => dispatch(addNewSection({ title: 'Bleble ble', id }))}
+          className="ml-12 mt-2 rounded-lg bg-gray-100 p-4"
+        >
+          <p className="text-sm font-medium leading-tight tracking-tight text-gray-400">
+            Add new section
+          </p>
+        </button>
+      ) : null}
     </div>
   )
 }
