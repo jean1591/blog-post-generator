@@ -17,7 +17,9 @@ export const Plan = () => {
 
   return (
     <div className="rounded-xl bg-gray-200 p-4 md:p-8">
-      <p className="text-2xl font-bold leading-tight tracking-tight">Plan</p>
+      <p className="text-2xl font-bold leading-tight tracking-tight">
+        Table of content
+      </p>
 
       <div className="mt-8 space-y-8">
         {plan.map((planItem) => (
@@ -40,7 +42,7 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
 
   return (
     <div className="relative">
-      <div className="group relative z-10 flex items-center justify-between rounded-lg bg-gray-100 p-4">
+      <div className="group relative flex items-center justify-between rounded-lg bg-gray-100 p-4">
         <p
           className={classNames(
             level === 1 ? 'font-semibold' : '',
@@ -60,16 +62,9 @@ const PlanItemComponent = ({ planItem }: { planItem: PlanItem }) => {
         </button>
       </div>
 
-      {children.length > 0 ? (
-        <div className="absolute left-4 top-0 z-0 h-full w-px bg-black" />
-      ) : null}
-
       <div className="mt-2 space-y-1 pl-12">
         {children.map((child) => (
-          <div className="relative">
-            <div className="absolute left-[-32px] top-1/2 h-px w-8 bg-black" />
-            <PlanItemComponent key={child.title} planItem={child} />
-          </div>
+          <PlanItemComponent key={child.id} planItem={child} />
         ))}
       </div>
 
