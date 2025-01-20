@@ -1,4 +1,4 @@
-import { Plan } from './components/Plan'
+import { SelectedTab } from './components/SelectedTab'
 import { TabSelector } from './components/TabSelector'
 
 export default function Generate() {
@@ -6,7 +6,7 @@ export default function Generate() {
     <div className="py-24">
       <div className="mx-auto max-w-3xl space-y-8 px-4 sm:px-6 lg:px-8">
         <TabSelector />
-        <Plan />
+        <SelectedTab />
       </div>
     </div>
   )
