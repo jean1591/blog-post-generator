@@ -12,11 +12,11 @@ import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
 import { useState } from 'react'
 
-export const Plan = () => {
+export const TableOfContent = () => {
   const { plan } = useSelector((state: RootState) => state.generator)
 
   return (
-    <div className="rounded-xl bg-gray-200 p-4 md:p-8">
+    <div className="rounded-xl bg-gray-100 p-4 md:p-8">
       <p className="text-2xl font-bold leading-tight tracking-tight">
         Table of content
       </p>
@@ -64,7 +64,7 @@ const PlanSectionComponent = ({
 
   return (
     <div className="relative">
-      <div className="group relative flex items-center justify-between rounded-xl bg-gray-100 p-4">
+      <div className="group relative flex items-center justify-between rounded-xl bg-gray-50 p-4">
         <p
           className={classNames(
             level === 1 ? 'font-semibold' : '',
@@ -93,7 +93,7 @@ const PlanSectionComponent = ({
       {level === 1 && !displayAddNewSection ? (
         <div className="mt-1 pl-12">
           <button
-            className="w-full rounded-xl bg-gray-100 p-4 text-left text-sm font-medium leading-tight tracking-tight text-gray-400"
+            className="w-full rounded-xl bg-gray-50 p-4 text-left text-sm leading-tight tracking-tight text-gray-500"
             onClick={handleDisplayAddNewSection}
           >
             Add new section
@@ -102,10 +102,10 @@ const PlanSectionComponent = ({
       ) : null}
 
       {level === 1 && displayAddNewSection ? (
-        <div className="ml-12 mt-2 flex items-center justify-between gap-2 rounded-xl bg-gray-100 px-4 py-2">
+        <div className="ml-12 mt-2 flex items-center justify-between gap-2 rounded-xl bg-gray-100 py-2">
           <input
             onChange={(e) => setNewSectionTitle(e.target.value)}
-            className="w-2/3 rounded-lg bg-gray-100 p-2 text-sm font-medium leading-tight tracking-tight ring-1 ring-gray-300"
+            className="w-2/3 rounded-lg bg-gray-50 p-2 text-sm font-medium leading-tight tracking-tight ring-1 ring-gray-300"
             type="text"
             placeholder="New section title"
           />

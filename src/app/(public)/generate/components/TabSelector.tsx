@@ -12,7 +12,7 @@ export const TabSelector = () => {
   )
 
   return (
-    <div className="grid grid-cols-3 gap-4 rounded-xl bg-gray-200 px-8 py-2">
+    <div className="grid grid-cols-3 gap-4 rounded-full bg-gray-950 p-2">
       <Tab selectedTabIndex={selectedTabIndex} tabIndex={0} title="Ideas" />
       <Tab
         selectedTabIndex={selectedTabIndex}
@@ -39,7 +39,9 @@ const Tab = ({
     <button
       onClick={() => dispatch(setSelectedTabIndex(tabIndex))}
       className={classNames(
-        selectedTabIndex === tabIndex ? 'rounded-lg bg-gray-300' : '',
+        selectedTabIndex === tabIndex
+          ? 'rounded-full bg-gray-50'
+          : 'text-gray-50',
         'py-2 font-medium'
       )}
     >

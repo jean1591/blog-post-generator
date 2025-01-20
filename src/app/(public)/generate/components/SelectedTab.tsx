@@ -1,9 +1,9 @@
 'use client'
 
 import { Ideas } from './Ideas'
-import { Plan } from './Plan'
 import { Post } from './Post'
 import { RootState } from '@/store/store'
+import { TableOfContent } from './TableOfContent'
 import { useSelector } from 'react-redux'
 
 export const SelectedTab = () => {
@@ -16,7 +16,7 @@ export const SelectedTab = () => {
   }
 
   if (selectedTabIndex === 1) {
-    return <Plan />
+    return <TableOfContent />
   }
 
   if (selectedTabIndex === 2) {
