@@ -57,10 +57,12 @@ const initialPlan: PlanSection[] = [
 
 export interface GeneratorSlice {
   plan: PlanSection[]
+  selectedTabIndex: number
 }
 
 const initialState: GeneratorSlice = {
   plan: initialPlan,
+  selectedTabIndex: 0,
 }
 
 const deleteFromSections = (plan: PlanSection[], id: string): PlanSection[] => {
@@ -118,9 +120,13 @@ export const generatorSlice = createSlice({
       const { payload: id } = action
       state.plan = deleteFromSections(state.plan, id)
     },
+    setSelectedTabIndex: (state, action: PayloadAction<number>) => {
+      state.selectedTabIndex = action.payload
+    },
   },
 })
 
-export const { addNewSection, deleteSectionFromPlan } = generatorSlice.actions
+export const { addNewSection, deleteSectionFromPlan, setSelectedTabIndex } =
+  generatorSlice.actions
 
 export default generatorSlice.reducer
