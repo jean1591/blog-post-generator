@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
-import { PlanSection } from '@/types/generator'
+import { PlanSection, PostItem } from '@/types/generator'
 
 export interface GeneratorSlice {
   plan: PlanSection[]
+  post: PostItem[] | undefined
   selectedTabIndex: number
   titles: string[]
   title: string | undefined
@@ -11,6 +11,7 @@ export interface GeneratorSlice {
 
 const initialState: GeneratorSlice = {
   plan: [],
+  post: undefined,
   selectedTabIndex: 0,
   titles: [],
   title: undefined,
@@ -71,6 +72,9 @@ export const generatorSlice = createSlice({
       const { payload: id } = action
       state.plan = deleteFromSections(state.plan, id)
     },
+    setPost: (state, action: PayloadAction<PostItem[]>) => {
+      state.post = action.payload
+    },
     setSelectedTabIndex: (state, action: PayloadAction<number>) => {
       state.selectedTabIndex = action.payload
     },
@@ -89,6 +93,7 @@ export const generatorSlice = createSlice({
 export const {
   addNewSection,
   deleteSectionFromPlan,
+  setPost,
   setSelectedTabIndex,
   setTitle,
   setTitles,

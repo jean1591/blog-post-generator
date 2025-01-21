@@ -1,19 +1,47 @@
 'use client'
 
+import { PlanSection, PostItem } from '@/types/generator'
 import {
   addNewSection,
   deleteSectionFromPlan,
+  setPost,
+  setSelectedTabIndex,
 } from '@/store/features/generate/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { PiXBold } from 'react-icons/pi'
-import { PlanSection } from '@/types/generator'
 import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
 import { useState } from 'react'
 
+const fetchPost = async (
+  title: string,
+  toc: PlanSection[]
+): Promise<{ post: PostItem[] }> => {
+  const response = await fetch(`/api/generate/post`, {
+    method: 'POST',
+    body: JSON.stringify({
+      title,
+      toc,
+    }),
+    headers: { 'Content-Type': 'application/json' },
+  })
+
+  return response.json()
+}
+
 export const TableOfContent = () => {
+  const dispatch = useDispatch()
   const { plan, title } = useSelector((state: RootState) => state.generator)
+
+  const handleOnClick = async () => {
+    if (title) {
+      const { post } = await fetchPost(title, plan)
+      dispatch(setPost(post))
+
+      dispatch(setSelectedTabIndex(2))
+    }
+  }
 
   return (
     <div>
@@ -30,6 +58,13 @@ export const TableOfContent = () => {
           />
         ))}
       </div>
+
+      <button
+        onClick={handleOnClick}
+        className="mt-8 w-full rounded-xl bg-gray-950 p-2 font-medium leading-tight tracking-tight text-gray-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
+      >
+        Generate post
+      </button>
     </div>
   )
 }
