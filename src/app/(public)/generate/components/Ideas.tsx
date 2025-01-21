@@ -1,5 +1,6 @@
 import {
   setSelectedTabIndex,
+  setTitle,
   setTitles,
   setToc,
 } from '@/store/features/generate/slice'
@@ -57,7 +58,7 @@ const TitleInput = () => {
   }
 
   return (
-    <div className="rounded-2xl bg-gray-100 p-4 md:p-8">
+    <div>
       <p className="text-2xl font-bold leading-tight tracking-tight">
         Title generator
       </p>
@@ -74,7 +75,7 @@ const TitleInput = () => {
       <button
         disabled={topic === ''}
         onClick={handleOnClick}
-        className="mt-8 w-full rounded-xl bg-gray-950 p-2 font-medium leading-tight tracking-tight text-gray-50 transition-colors duration-300 ease-in-out disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
+        className="mt-8 w-full rounded-xl bg-gray-950 p-2 font-medium leading-tight tracking-tight text-gray-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
         Generate titles
       </button>
@@ -88,6 +89,7 @@ const TitleIdeas = () => {
 
   const handleOnChange = async (index: number) => {
     const { toc } = await fetchToc(titles[index])
+    dispatch(setTitle(titles[index]))
     dispatch(setToc(toc))
 
     dispatch(setSelectedTabIndex(1))

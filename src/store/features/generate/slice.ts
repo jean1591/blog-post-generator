@@ -74,6 +74,9 @@ export const generatorSlice = createSlice({
     setSelectedTabIndex: (state, action: PayloadAction<number>) => {
       state.selectedTabIndex = action.payload
     },
+    setTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload
+    },
     setTitles: (state, action: PayloadAction<string[]>) => {
       state.titles = action.payload
     },
@@ -87,6 +90,7 @@ export const {
   addNewSection,
   deleteSectionFromPlan,
   setSelectedTabIndex,
+  setTitle,
   setTitles,
   setToc,
 } = generatorSlice.actions
