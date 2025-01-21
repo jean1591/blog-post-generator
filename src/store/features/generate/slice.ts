@@ -2,67 +2,18 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { PlanSection } from '@/types/generator'
 
-const initialPlan: PlanSection[] = [
-  {
-    children: [
-      { children: [], id: '1.1', level: 2, title: 'Importance Of UX Design' },
-      {
-        children: [
-          {
-            children: [],
-            id: '1.2.1',
-            level: 3,
-            title: 'Importance Of UX Design',
-          },
-          { children: [], id: '1.2.2', level: 3, title: 'UX Design Process' },
-        ],
-        id: '1.2',
-        level: 2,
-        title: 'UX Design Process',
-      },
-    ],
-    id: '1',
-    level: 1,
-    title: 'What Is UX Design?',
-  },
-  {
-    children: [],
-    id: '2',
-    level: 1,
-    title: 'How To Write A UX Blog Regarding Problem Identification.',
-  },
-  {
-    children: [
-      { children: [], id: '3.1', level: 2, title: 'Importance Of UX Design' },
-      {
-        children: [
-          {
-            children: [],
-            id: '3.2.1',
-            level: 3,
-            title: 'Importance Of UX Design',
-          },
-          { children: [], id: '3.2.2', level: 3, title: 'UX Design Process' },
-        ],
-        id: '3.2',
-        level: 2,
-        title: 'UX Design Process',
-      },
-    ],
-    id: '3',
-    level: 1,
-    title: 'What Is UX Design?',
-  },
-]
-
 export interface GeneratorSlice {
   plan: PlanSection[]
   selectedTabIndex: number
+  titles: string[]
+  title: string | undefined
 }
 
 const initialState: GeneratorSlice = {
-  plan: initialPlan,
+  plan: [],
   selectedTabIndex: 0,
+  titles: [],
+  title: undefined,
 }
 
 const deleteFromSections = (plan: PlanSection[], id: string): PlanSection[] => {
@@ -123,10 +74,21 @@ export const generatorSlice = createSlice({
     setSelectedTabIndex: (state, action: PayloadAction<number>) => {
       state.selectedTabIndex = action.payload
     },
+    setTitles: (state, action: PayloadAction<string[]>) => {
+      state.titles = action.payload
+    },
+    setToc: (state, action: PayloadAction<PlanSection[]>) => {
+      state.plan = action.payload
+    },
   },
 })
 
-export const { addNewSection, deleteSectionFromPlan, setSelectedTabIndex } =
-  generatorSlice.actions
+export const {
+  addNewSection,
+  deleteSectionFromPlan,
+  setSelectedTabIndex,
+  setTitles,
+  setToc,
+} = generatorSlice.actions
 
 export default generatorSlice.reducer
