@@ -1,74 +1,74 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PlanSection, PostItem } from '@/types/generator'
 
-const post: PostItem[] = [
-  {
-    type: 'h2',
-    value: 'Origines religieuses de l’Ascension',
-  },
-  {
-    type: 'h3',
-    value: 'La signification chrétienne',
-  },
-  {
-    type: 'p',
-    value:
-      'L’Ascension est une fête chrétienne qui célèbre un moment clé de la vie de Jésus-Christ : sa montée au ciel. Selon les récits bibliques, cet événement se produit quarante jours après Pâques, la résurrection de Jésus.',
-  },
-  {
-    type: 'p',
-    value:
-      'Cet épisode marque la fin de la présence physique du Christ sur Terre et le début de sa mission céleste. Il promet également l’envoi de l’Esprit Saint à ses disciples, un autre événement célébré dix jours plus tard lors de la Pentecôte.',
-  },
-  {
-    type: 'h3',
-    value: 'Une tradition ancienne',
-  },
-  {
-    type: 'p',
-    value:
-      'L’Ascension est l’une des plus anciennes fêtes chrétiennes. Les premières célébrations remontent aux premiers siècles de l’Église. Dès le IVe siècle, des traces de cette fête apparaissent dans les écrits religieux et les pratiques liturgiques.',
-  },
-  {
-    type: 'p',
-    value:
-      'Une question revient souvent : pourquoi l’Ascension tombe-t-elle toujours un jeudi ? La réponse réside dans le calcul des quarante jours après Pâques, qui est toujours célébrée un dimanche. En comptant précisément, le quarantième jour tombe invariablement un jeudi. Ce lien avec Pâques fait de l’Ascension une fête mobile, sa date variant chaque année en fonction du calendrier lunaire.',
-  },
-  {
-    type: 'h2',
-    value: 'Pourquoi l’Ascension est-elle un jour férié en France ?',
-  },
-  {
-    type: 'h3',
-    value: 'Une fête inscrite dans l’histoire de la France',
-  },
-  {
-    type: 'p',
-    value:
-      'Le statut férié de l’Ascension trouve ses racines dans l’histoire religieuse de la France. À cette époque, les fêtes religieuses rythmaient la vie quotidienne et étaient souvent des jours chômés pour permettre aux fidèles de participer aux célébrations liturgiques.',
-  },
-  {
-    type: 'h2',
-    value: 'Une fête respectée malgré la laïcité',
-  },
-  {
-    type: 'p',
-    value:
-      'Avec la loi de séparation des Églises et de l’État en 1905, la France est devenue officiellement laïque. Cela signifiait que l’État ne favorisait plus aucune religion. Pourtant, certaines fêtes chrétiennes ont été conservées dans le calendrier civil en raison de leur importance culturelle et historique.',
-  },
-  {
-    type: 'li',
-    value: [
-      'Un ancrage dans la tradition : l’Ascension est célébrée depuis des siècles et fait partie du patrimoine culturel français.',
-      'Un compromis pratique : l’État a choisi de maintenir un certain nombre de jours fériés religieux pour préserver un équilibre entre tradition et modernité.',
-      'Une importance symbolique : même pour les non-croyants, cette journée est perçue comme une occasion de se reposer ou de se retrouver en famille.',
-    ],
-  },
-]
+import OpenAI from 'openai'
+import { PlanSection } from '@/types/generator'
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+
+function displayPlanSections(planSections: PlanSection[], level = 1): string {
+  return planSections
+    .map((section) => {
+      const indent = '-'.repeat(section.level)
+      const sectionDisplay = `${indent} ${section.title}`
+
+      if (section.children.length > 0) {
+        return `${sectionDisplay}\n${displayPlanSections(section.children, section.level + 1)}`
+      }
+
+      return sectionDisplay
+    })
+    .join('\n')
+}
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const { title, topic }: { title: string; topic: PlanSection[] } =
+  const { nextUrl } = request
+  const { title, toc }: { title: string; toc: PlanSection[] } =
     await request.json()
 
-  return NextResponse.json({ post })
+  console.log(
+    `[POST] ${nextUrl.pathname}`,
+    JSON.stringify({ title, toc }, null, 2)
+  )
+
+  const prompt = `Generate a blog post of around 1500 words regarding '${title}'. The post should have the following structure:
+  ${displayPlanSections(toc)}
+
+The table of content should be an array of the following PlanSection interface:
+interface PostItem {
+  type: 'h2' | 'h3' | 'p' | 'li' // html tag used throughout the article
+  value: string | string[] // string for h2, h3 and p, string[] for li
+}
+
+Provide a JSON response with the following structure:
+{
+  'post': PostItem[],
+}
+
+Rules:
+- Do not capitalize every word, only the first word should be capitalize
+- Do not send h1 as the title will act as one
+- Respect the language in which the title and table of content is stated
+
+Ensure the response is valid JSON and all fields are present.`
+
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'system', content: prompt }],
+    model: 'gpt-4o-mini',
+    response_format: { type: 'json_object' },
+  })
+
+  const { content: analysis } = completion.choices[0].message
+
+  if (!analysis) {
+    const today = new Date()
+    console.error(`${today.toISOString()} ERROR OPENAI_NO_RESPONSE`, {
+      completion,
+    })
+
+    throw new Error('OPENAI_NO_RESPONSE')
+  }
+
+  const post = JSON.parse(analysis).post
+
+  return NextResponse.json({ post: post })
 }
