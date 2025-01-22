@@ -46,9 +46,6 @@ export const TableOfContent = () => {
   return (
     <div>
       <p className="text-2xl font-bold leading-tight tracking-tight">{title}</p>
-      <p className="mt-2 text-lg font-medium leading-tight tracking-tight">
-        Table of content
-      </p>
 
       <div className="mt-8 space-y-8">
         {plan.map((planSection) => (
@@ -61,7 +58,7 @@ export const TableOfContent = () => {
 
       <button
         onClick={handleOnClick}
-        className="mt-8 w-full rounded-xl bg-gray-950 p-2 font-medium leading-tight tracking-tight text-gray-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
+        className="mt-8 w-full rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
         Generate post
       </button>

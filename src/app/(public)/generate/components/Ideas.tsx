@@ -75,7 +75,7 @@ const TitleInput = () => {
       <button
         disabled={topic === ''}
         onClick={handleOnClick}
-        className="mt-8 w-full rounded-xl bg-gray-950 p-2 font-medium leading-tight tracking-tight text-gray-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
+        className="mt-8 w-full rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
         Generate titles
       </button>
@@ -123,7 +123,7 @@ const TitleIdeas = () => {
               </p>
             </div>
 
-            <div className="rounded-md border border-gray-300 bg-gray-50 p-2">
+            <div className="rounded-md border bg-gray-50 p-2">
               <PiCaretRight className="h-5 w-5" />
             </div>
           </li>
