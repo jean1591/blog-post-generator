@@ -4,6 +4,7 @@ import {
   setTitle,
   setTitles,
   setToc,
+  toggleIsLoadingTitle,
 } from '@/store/features/generate/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -47,18 +48,18 @@ export const Ideas = () => {
 
 const TitleInput = () => {
   const dispatch = useDispatch()
+  const { isLoadingTitles } = useSelector((state: RootState) => state.generator)
   const [topic, setTopic] = useState<string>('')
-  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleOnClick = async () => {
     if (topic !== '') {
-      setIsLoading(true)
+      dispatch(toggleIsLoadingTitle())
 
       const { titles } = await fetchTitles(topic)
       dispatch(setTitles(titles))
 
       setTopic('')
-      setIsLoading(false)
+      dispatch(toggleIsLoadingTitle())
     }
   }
 
@@ -82,7 +83,7 @@ const TitleInput = () => {
         onClick={handleOnClick}
         className="mt-8 flex w-full items-center justify-center gap-1 rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
-        {isLoading ? (
+        {isLoadingTitles ? (
           <PiCircleNotchBold className="h-5 w-5 animate-spin" />
         ) : null}
         <p>Generate titles</p>
@@ -93,7 +94,9 @@ const TitleInput = () => {
 
 const TitleIdeas = () => {
   const dispatch = useDispatch()
-  const { titles } = useSelector((state: RootState) => state.generator)
+  const { isLoadingTitles, titles } = useSelector(
+    (state: RootState) => state.generator
+  )
   const [selectedTitleIndex, setselectedTitleIndex] = useState<
     number | undefined
   >(undefined)
@@ -113,8 +116,42 @@ const TitleIdeas = () => {
     setselectedTitleIndex(undefined)
   }
 
-  if (titles.length === 0) {
+  if (!isLoadingTitles && titles.length === 0) {
     return <></>
+  }
+
+  if (isLoadingTitles) {
+    return (
+      <div className="mt-16">
+        <p className="text-2xl font-semibold leading-tight tracking-tight">
+          Titles idea
+        </p>
+
+        <ul className="mt-8 space-y-2">
+          {[0, 1, 2, 3, 4].map((index) => (
+            <li
+              key={index}
+              className={classNames(
+                'flex cursor-pointer items-start justify-between rounded-2xl bg-gray-100 p-4 transition-colors duration-300 ease-in-out md:p-8'
+              )}
+            >
+              <div className="space-y-2">
+                <p className="animate-pulse bg-gray-300 font-medium leading-tight tracking-tight text-gray-300">
+                  Blog post title idea Blog post title idea #{index + 1}
+                </p>
+                <p className="font-light text-gray-500">
+                  Title idea #{index + 1}
+                </p>
+              </div>
+
+              <div className="rounded-md border bg-gray-50 p-2">
+                <PiCaretRight className="h-5 w-5" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
   }
 
   return (

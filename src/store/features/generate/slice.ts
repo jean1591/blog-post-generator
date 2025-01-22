@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { PlanSection, PostItem } from '@/types/generator'
 
 export interface GeneratorSlice {
+  isLoadingTitles: boolean
   plan: PlanSection[]
   post: PostItem[] | undefined
   selectedTabIndex: number
@@ -10,6 +11,7 @@ export interface GeneratorSlice {
 }
 
 const initialState: GeneratorSlice = {
+  isLoadingTitles: false,
   plan: [],
   post: undefined,
   selectedTabIndex: 0,
@@ -87,6 +89,9 @@ export const generatorSlice = createSlice({
     setToc: (state, action: PayloadAction<PlanSection[]>) => {
       state.plan = action.payload
     },
+    toggleIsLoadingTitle: (state) => {
+      state.isLoadingTitles = !state.isLoadingTitles
+    },
   },
 })
 
@@ -98,6 +103,7 @@ export const {
   setTitle,
   setTitles,
   setToc,
+  toggleIsLoadingTitle,
 } = generatorSlice.actions
 
 export default generatorSlice.reducer
