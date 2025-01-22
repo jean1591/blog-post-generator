@@ -60,7 +60,7 @@ export default function RootLayout({
     <StoreProvider>
       <html lang="en" className="scroll-smooth">
         <body
-          className={classNames(inter.className, 'bg-gray-50 text-slate-900')}
+          className={classNames(inter.className, 'bg-gray-50 text-gray-900')}
         >
           <Script
             defer

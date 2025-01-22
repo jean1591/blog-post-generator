@@ -104,7 +104,7 @@ const PlanSectionComponent = ({
   }
 
   return (
-    <div className="relative">
+    <div>
       <div className="group relative flex items-center justify-between rounded-2xl bg-gray-100 p-4">
         <p
           className={classNames(

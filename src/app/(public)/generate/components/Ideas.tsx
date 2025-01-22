@@ -38,7 +38,7 @@ const fetchToc = async (title: string): Promise<{ toc: PlanSection[] }> => {
 
 export const Ideas = () => {
   return (
-    <div className="space-y-16">
+    <div className="space-y-20">
       <TitleInput />
       <TitleIdeas />
     </div>
@@ -69,7 +69,7 @@ const TitleInput = () => {
       </p>
 
       <p className="mt-8">
-        Briefly write about your article's topic, we'll generate title for you
+        Briefly write about your article's topic, we'll generate titles for you
       </p>
       <textarea
         onChange={(e) => setTopic(e.target.value)}
