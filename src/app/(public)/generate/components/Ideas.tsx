@@ -1,3 +1,4 @@
+import { PiCaretRight, PiCircleNotchBold } from 'react-icons/pi'
 import {
   setSelectedTabIndex,
   setTitle,
@@ -6,7 +7,6 @@ import {
 } from '@/store/features/generate/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { PiCaretRight } from 'react-icons/pi'
 import { PlanSection } from '@/types/generator'
 import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
@@ -48,12 +48,17 @@ export const Ideas = () => {
 const TitleInput = () => {
   const dispatch = useDispatch()
   const [topic, setTopic] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleOnClick = async () => {
     if (topic !== '') {
+      setIsLoading(true)
+
       const { titles } = await fetchTitles(topic)
       dispatch(setTitles(titles))
+
       setTopic('')
+      setIsLoading(false)
     }
   }
 
@@ -75,9 +80,12 @@ const TitleInput = () => {
       <button
         disabled={topic === ''}
         onClick={handleOnClick}
-        className="mt-8 w-full rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
+        className="mt-8 flex w-full items-center justify-center gap-1 rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
-        Generate titles
+        {isLoading ? (
+          <PiCircleNotchBold className="h-5 w-5 animate-spin" />
+        ) : null}
+        <p>Generate titles</p>
       </button>
     </div>
   )
@@ -86,13 +94,23 @@ const TitleInput = () => {
 const TitleIdeas = () => {
   const dispatch = useDispatch()
   const { titles } = useSelector((state: RootState) => state.generator)
+  const [selectedTitleIndex, setselectedTitleIndex] = useState<
+    number | undefined
+  >(undefined)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleOnChange = async (index: number) => {
+    setselectedTitleIndex(index)
+    setIsLoading(true)
+
     const { toc } = await fetchToc(titles[index])
+
     dispatch(setTitle(titles[index]))
     dispatch(setToc(toc))
-
     dispatch(setSelectedTabIndex(1))
+
+    setIsLoading(false)
+    setselectedTitleIndex(undefined)
   }
 
   if (titles.length === 0) {
@@ -124,7 +142,11 @@ const TitleIdeas = () => {
             </div>
 
             <div className="rounded-md border bg-gray-50 p-2">
-              <PiCaretRight className="h-5 w-5" />
+              {isLoading && selectedTitleIndex === index ? (
+                <PiCircleNotchBold className="h-5 w-5 animate-spin" />
+              ) : (
+                <PiCaretRight className="h-5 w-5" />
+              )}
             </div>
           </li>
         ))}

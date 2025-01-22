@@ -1,5 +1,6 @@
 'use client'
 
+import { PiCircleNotchBold, PiXBold } from 'react-icons/pi'
 import { PlanSection, PostItem } from '@/types/generator'
 import {
   addNewSection,
@@ -9,7 +10,6 @@ import {
 } from '@/store/features/generate/slice'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { PiXBold } from 'react-icons/pi'
 import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
 import { useState } from 'react'
@@ -33,13 +33,18 @@ const fetchPost = async (
 export const TableOfContent = () => {
   const dispatch = useDispatch()
   const { plan, title } = useSelector((state: RootState) => state.generator)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleOnClick = async () => {
     if (title) {
-      const { post } = await fetchPost(title, plan)
-      dispatch(setPost(post))
+      setIsLoading(true)
 
+      const { post } = await fetchPost(title, plan)
+
+      dispatch(setPost(post))
       dispatch(setSelectedTabIndex(2))
+
+      setIsLoading(false)
     }
   }
 
@@ -58,9 +63,12 @@ export const TableOfContent = () => {
 
       <button
         onClick={handleOnClick}
-        className="mt-8 w-full rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
+        className="mt-8 flex w-full items-center justify-center gap-1 rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
-        Generate post
+        {isLoading ? (
+          <PiCircleNotchBold className="h-5 w-5 animate-spin" />
+        ) : null}
+        <p>Generate post</p>
       </button>
     </div>
   )
