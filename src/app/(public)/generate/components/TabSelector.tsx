@@ -39,7 +39,7 @@ const Tab = ({
     <button
       onClick={() => dispatch(setSelectedTabIndex(tabIndex))}
       className={classNames(
-        selectedTabIndex === tabIndex ? 'border-cyan-900' : 'border-gray-200',
+        selectedTabIndex >= tabIndex ? 'border-cyan-900' : 'border-gray-200',
         'border-t-4 py-2 text-left'
       )}
     >
