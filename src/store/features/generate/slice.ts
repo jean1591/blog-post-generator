@@ -8,6 +8,7 @@ export interface GeneratorSlice {
   selectedTabIndex: number
   titles: string[]
   title: string | undefined
+  topic: string | undefined
 }
 
 const initialState: GeneratorSlice = {
@@ -17,6 +18,7 @@ const initialState: GeneratorSlice = {
   selectedTabIndex: 0,
   titles: [],
   title: undefined,
+  topic: undefined,
 }
 
 const deleteFromSections = (plan: PlanSection[], id: string): PlanSection[] => {
@@ -89,6 +91,9 @@ export const generatorSlice = createSlice({
     setToc: (state, action: PayloadAction<PlanSection[]>) => {
       state.plan = action.payload
     },
+    setTopic: (state, action: PayloadAction<string>) => {
+      state.topic = action.payload
+    },
     toggleIsLoadingTitle: (state) => {
       state.isLoadingTitles = !state.isLoadingTitles
     },
@@ -103,6 +108,7 @@ export const {
   setTitle,
   setTitles,
   setToc,
+  setTopic,
   toggleIsLoadingTitle,
 } = generatorSlice.actions
 

@@ -7,11 +7,11 @@ import {
   toggleIsLoadingTitle,
 } from '@/store/features/generate/slice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
 import { PlanSection } from '@/types/generator'
 import { RootState } from '@/store/store'
 import { classNames } from '@/utils/classNames'
-import { useState } from 'react'
 
 const fetchTitles = async (topic: string): Promise<{ titles: string[] }> => {
   const response = await fetch(`/api/generate/titles`, {
@@ -48,17 +48,25 @@ export const Ideas = () => {
 
 const TitleInput = () => {
   const dispatch = useDispatch()
-  const { isLoadingTitles } = useSelector((state: RootState) => state.generator)
-  const [topic, setTopic] = useState<string>('')
+  const { isLoadingTitles, topic } = useSelector(
+    (state: RootState) => state.generator
+  )
+  const [inputTopic, setInputTopic] = useState<string>('')
+
+  useEffect(() => {
+    if (topic) {
+      setInputTopic(topic)
+    }
+  }, [])
 
   const handleOnClick = async () => {
     if (topic !== '') {
       dispatch(toggleIsLoadingTitle())
 
-      const { titles } = await fetchTitles(topic)
+      const { titles } = await fetchTitles(inputTopic)
       dispatch(setTitles(titles))
 
-      setTopic('')
+      setInputTopic('')
       dispatch(toggleIsLoadingTitle())
     }
   }
@@ -73,13 +81,13 @@ const TitleInput = () => {
         Briefly write about your article's topic, we'll generate titles for you
       </p>
       <textarea
-        onChange={(e) => setTopic(e.target.value)}
-        value={topic}
+        onChange={(e) => setInputTopic(e.target.value)}
+        value={inputTopic}
         className="mt-2 h-24 w-full rounded-lg bg-gray-50 p-2 text-sm font-medium leading-tight tracking-tight ring-1 ring-gray-300"
       />
 
       <button
-        disabled={topic === ''}
+        disabled={inputTopic === ''}
         onClick={handleOnClick}
         className="mt-8 flex w-full items-center justify-center gap-1 rounded-xl bg-cyan-900 p-4 leading-tight tracking-tight text-cyan-50 transition-colors duration-300 ease-in-out disabled:bg-gray-100 disabled:text-gray-500 disabled:ring-1 disabled:ring-gray-300"
       >
