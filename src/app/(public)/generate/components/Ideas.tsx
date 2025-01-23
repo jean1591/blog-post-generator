@@ -110,7 +110,9 @@ const TitleIdeas = () => {
 
     dispatch(setTitle(titles[index]))
     dispatch(setToc(toc))
+
     dispatch(setSelectedTabIndex(1))
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
     setIsLoading(false)
     setselectedTitleIndex(undefined)

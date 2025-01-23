@@ -42,7 +42,9 @@ export const TableOfContent = () => {
       const { post } = await fetchPost(title, plan)
 
       dispatch(setPost(post))
+
       dispatch(setSelectedTabIndex(2))
+      window.scrollTo({ top: 0, behavior: 'smooth' })
 
       setIsLoading(false)
     }
