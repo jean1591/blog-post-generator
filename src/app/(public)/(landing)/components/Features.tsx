@@ -42,7 +42,7 @@ export const Features = () => {
           const Icon = icon
 
           return (
-            <div className="space-y-4">
+            <div key={title} className="space-y-4">
               <div className="flex items-center justify-start gap-2">
                 <Icon className="h-5 w-5 text-cyan-700" />
                 <p className="text-lg font-bold leading-tight tracking-tight">

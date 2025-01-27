@@ -1,3 +1,4 @@
+import { Faq } from './components/Faq'
 import { Features } from './components/Features'
 import { Footer } from '../components/Footer'
 import { TopicInput } from './components/TopicInput'
@@ -25,6 +26,7 @@ export default function Home() {
       </div>
 
       <Features />
+      <Faq />
 
       <Footer />
     </div>
