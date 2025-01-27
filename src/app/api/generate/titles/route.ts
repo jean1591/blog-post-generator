@@ -17,6 +17,10 @@ Provide a JSON response with the following structure:
   'titles': string[], // Array of post titles
 }
 
+Goals:
+- Optimize title for SEO
+- Craft attention-grabbing titles
+
 Rules:
 - Do not capitalize every word, only the first word should be capitalize
 - Respect the language in which the topic is stated

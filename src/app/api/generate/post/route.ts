@@ -44,10 +44,13 @@ Provide a JSON response with the following structure:
   'post': PostItem[],
 }
 
+Goals:
+- Optimize article for SEO
+
 Rules:
 - Do not capitalize every word, only the first word should be capitalize
 - Do not send h1 as the title will act as one
-- Respect the language in which the title and table of content is stated
+- Respect the language in which the title and table of content are stated
 
 Ensure the response is valid JSON and all fields are present.`
 

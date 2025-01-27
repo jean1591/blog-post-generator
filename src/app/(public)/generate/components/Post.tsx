@@ -24,7 +24,7 @@ export const Post = () => {
     <div className="space-y-8">
       <p className="text-2xl font-bold leading-tight tracking-tight">{title}</p>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         {post.map((item) => {
           if (item.type !== 'li') {
             return (

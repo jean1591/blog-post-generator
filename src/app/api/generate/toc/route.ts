@@ -25,6 +25,10 @@ Provide a JSON response with the following structure:
   'toc': PlanSection[],
 }
 
+Goals:
+- Optimize sections for SEO
+- Craft attention-grabbing section titles
+
 Rules:
 - Do not capitalize every word, only the first word should be capitalize
 - Do not nest lower than level 3
