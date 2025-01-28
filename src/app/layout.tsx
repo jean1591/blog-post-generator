@@ -9,17 +9,17 @@ import { classNames } from '@/utils/classNames'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const metaDescription = 'Generate this using ChatGPT'
-const titleAndDefault = 'Generate this using ChatGPT'
-const appUrl = 'https://my-app-name.rb2.fr'
+const metaDescription =
+  'Effortlessly generate high-quality, plagiarism-free articles in seconds. Customize titles, outlines, and content with our 100% free AI-powered article generator.'
+const titleAndDefault =
+  'Article Generator | Create high-quality articles for free'
+const appUrl = 'https://article-generator.jeanrobertou.com'
 
 export const metadata: Metadata = {
-  title: {
-    template: titleAndDefault,
-    default: titleAndDefault,
-  },
+  title: titleAndDefault,
   description: metaDescription,
-  keywords: 'Generate this using ChatGPT',
+  keywords:
+    'AI article generator, free article writing tool, AI-powered content creator, create articles for free, blog post generator, SEO-friendly content, custom articles',
   metadataBase: new URL(appUrl),
   openGraph: {
     title: titleAndDefault,
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_URL!}`,
+    canonical: appUrl,
   },
 }
 

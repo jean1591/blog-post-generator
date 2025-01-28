@@ -1,9 +1,9 @@
 {
-  "name": "INSERT_NAME",
+  "name": "article-generator",
   "version": "1.0.0",
   "author": {
     "name": "jean robertou",
-    "url": "https://[INSERT_NAME].rb2.fr"
+    "url": "https://article-generator.jeanrobertou.com"
   },
   "private": false,
   "scripts": {
