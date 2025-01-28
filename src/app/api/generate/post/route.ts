@@ -30,7 +30,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     JSON.stringify({ title, toc }, null, 2)
   )
 
-  const prompt = `Generate a blog post of around 1500 words regarding '${title}'. The post should have the following structure:
+  const prompt = `Generate an article of around 1500 words regarding '${title}'. The article should have the following structure:
   ${displayPlanSections(toc)}
 
 The table of content should be an array of the following PlanSection interface:

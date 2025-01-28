@@ -1,7 +1,18 @@
 import { Footer } from '../components/Footer'
+import { Metadata } from 'next'
 import { Navbar } from '../components/Navbar'
 import { SelectedTab } from './components/SelectedTab'
 import { TabSelector } from './components/TabSelector'
+import { metadata } from '@/app/layout'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    ...metadata,
+    alternates: {
+      canonical: 'https://article-generator.jeanrobertou.com/generate',
+    },
+  }
+}
 
 export default function Generate() {
   return (

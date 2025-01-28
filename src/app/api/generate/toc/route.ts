@@ -10,7 +10,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   console.log(`[POST] ${nextUrl.pathname}`, { title })
 
-  const prompt = `Generate a table of content for a blog post about '${title}'. The blog post should be around 1500 words.
+  const prompt = `Generate a table of content for an article about '${title}'. The article should be around 1500 words.
 
 The table of content should be an array of the following PlanSection interface:
 interface PlanSection {

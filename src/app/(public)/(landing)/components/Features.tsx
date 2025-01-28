@@ -11,19 +11,19 @@ const features = [
     icon: PiGearFineBold,
     title: 'Fine-tune your structure',
     description:
-      'Easily customize your blog’s table of contents to match your vision. Add, edit, or remove sections to create a seamless reading flow for your audience.',
+      'Easily customize your article’s table of contents to match your vision. Add, edit, or remove sections to create a seamless reading flow for your audience.',
   },
   {
     icon: PiPenNibBold,
-    title: 'Generate your blog post',
+    title: 'Generate your article',
     description:
-      'Let AI craft a complete, high-quality blog post in seconds, ready for your final touches. The content is tailored to your inputs, ensuring it aligns with your style and goals.',
+      'Let AI craft a complete, high-quality articles in seconds, ready for your final touches. The content is tailored to your inputs, ensuring it aligns with your style and goals.',
   },
 ]
 
 export const Features = () => {
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-20 px-4 md:px-0">
+    <div className="mx-auto w-full max-w-7xl space-y-20 px-4 lg:px-0">
       <div className="space-y-8">
         <h2 className="bg-gradient-to-t from-cyan-700 to-cyan-300 bg-clip-text text-center text-4xl font-bold leading-tight tracking-tight text-transparent">
           Features that make articles writing effortless

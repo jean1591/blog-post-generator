@@ -10,7 +10,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   console.log(`[POST] ${nextUrl.pathname}`, { topic })
 
-  const prompt = `Generate 5 titles for a blog post on '${topic}':
+  const prompt = `Generate 5 titles for an article on '${topic}':
 
 Provide a JSON response with the following structure:
 {

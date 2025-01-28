@@ -23,7 +23,7 @@ export const TopicInput = () => {
         className="block w-full rounded-xl p-4 text-center font-bold leading-tight tracking-tight text-cyan-50 ring-2 ring-cyan-50 transition-colors duration-500 ease-in-out hover:bg-cyan-800 md:w-1/3"
         href="/generate"
       >
-        Generate blog post
+        Generate article
       </Link>
     </div>
   )

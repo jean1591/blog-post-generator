@@ -147,7 +147,7 @@ const TitleIdeas = () => {
             >
               <div className="space-y-2">
                 <p className="animate-pulse bg-gray-300 font-medium leading-tight tracking-tight text-gray-300">
-                  Blog post title idea Blog post title idea #{index + 1}
+                  Article title idea Article title idea #{index + 1}
                 </p>
                 <p className="font-light text-gray-500">
                   Title idea #{index + 1}
