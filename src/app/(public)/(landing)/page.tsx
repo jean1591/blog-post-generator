@@ -1,3 +1,4 @@
+import { Cta } from './components/Cta'
 import { Faq } from './components/Faq'
 import { Features } from './components/Features'
 import { Footer } from '../components/Footer'
@@ -9,6 +10,7 @@ export default function Home() {
       <Hero />
       <Features />
       <Faq />
+      <Cta />
 
       <Footer />
     </div>
